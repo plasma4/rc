@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Realistic Capitalism</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+    <style>
+        * {
+            font-size: 22px;
+            font-family: Cambria, Cochin, Georgia;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        *::selection {
+            background: #ddd;
+            color: inherit;
+        }
+
+        body {
+            background-color: #888;
+        }
+
+        options {
+            background-color: #fff;
+            border-radius: 10px;
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+            padding: 5px;
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            width: 250px;
+            height: 500px;
+            max-height: calc(100% - 50px);
+            overflow-y: auto;
+        }
+
+        options::-webkit-scrollbar {
+            width: 20px;
+        }
+
+        options::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px black;
+            border-radius: 10px;
+        }
+
+        options::-webkit-scrollbar-thumb {
+            background: #e00000;
+            box-shadow: inset 0 0 8px black;
+            border-radius: 10px;
+        }
+
+        options::-webkit-scrollbar-thumb:hover {
+            background: #cf0000;
+            box-shadow: inset 0 0 10px black;
+        }
+
+        options::-webkit-scrollbar-thumb:active {
+            background: #b50000;
+            box-shadow: 6px;
+            box-shadow: inset 0 0 12px black;
+        }
+
+        choice {
+            border-radius: 4px;
+            cursor: pointer;
+            color: #2060e0;
+            display: block;
+            transition: transform 250ms, color 500ms, background-color 500ms;
+            padding-left: 6px;
+        }
+
+        choice:hover {
+            color: #0644c0;
+            background-color: #d5d5d5;
+            text-decoration: underline;
+            transform: translateX(10px);
+        }
+
+        choice:active {
+            color: #003090;
+            text-decoration: underline;
+            transform: translateX(12px);
+        }
+
+        l {
+            color: #003090;
+            text-decoration: underline;
+        }
+
+        #reset {
+            transform: none;
+            color: #d70b0b;
+            transition: padding-left 1000ms, color 500ms, background-color 1000ms;
+        }
+
+        #reset:hover {
+            color: #911;
+            padding-left: 88px;
+        }
+
+        #reset:active {
+            padding-left: 92px;
+            color: #500;
+        }
+
+        stuff {
+            position: absolute;
+            width: 800px;
+            max-width: calc(100% - 700px);
+            min-width: 100px;
+            left: 315px;
+            top: 20px;
+            background-color: #aaa;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        slice {
+            display: block;
+            background-color: #555;
+            border-radius: 2px;
+            height: 2px;
+        }
+
+        slice#big {
+            background-color: black;
+            height: 4px;
+            margin-top: 2px;
+        }
+
+        price {
+            color: #0a0;
+            text-decoration: underline;
+            font-weight: bold;
+            transition: color 200ms;
+        }
+
+        price:hover {
+            color: #071;
+        }
+
+        price:active {
+            color: #162;
+        }
+
+        #version,
+        #time {
+            text-decoration: underline;
+            font-size: 15px;
+        }
+
+        #news,
+        #newsholder {
+            font-size: 17.5px;
+            padding: 5px;
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            width: 300px;
+            height: 150px;
+            max-width: 30%;
+            max-height: 50%;
+        }
+
+        #newsholder {
+            border-radius: 5px;
+            background-color: #333;
+        }
+
+        .up {
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(25px);
+        }
+
+        #news {
+            transition: opacity 0.4s, transform 0.6s;
+            overflow-y: auto;
+            text-align: center;
+            color: white;
+            scrollbar-width: none;
+        }
+
+        #news::-webkit-scrollbar {
+            width: 0;
+        }
+
+        #legal {
+            font-family: Verdana;
+            font-style: italic;
+            transition: font-size 250ms, transform 500ms;
+            line-height: 1.6;
+            font-size: 10px;
+            height: 50px;
+        }
+
+        #legal:hover {
+            font-size: 10.5px;
+            transform: translateX(10px);
+        }
+
+        #legal:active {
+            font-size: 12px;
+        }
+
+        y {
+            font-size: 22px;
+            color: #0b0;
+            font-style: italic;
+        }
+
+        bg {
+            position: absolute;
+            transition: opacity 500ms;
+            background-color: #888;
+            opacity: 0.8;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        bg:hover {
+            opacity: 0.6;
+        }
+
+        bg:active {
+            opacity: 0.4;
+        }
+
+        msg,
+        #info {
+            text-align: center;
+            font-family: "Gill Sans", Calibri, Tahoma;
+            font-weight: 600;
+        }
+
+        msg {
+            position: absolute;
+            top: calc(30% - 10px);
+            left: calc(22.5% - 7.5px);
+            padding: 4px;
+            font-size: 25px;
+            width: calc(55% + 15px);
+            height: calc(40% + 20px);
+            color: white;
+            background-color: #444;
+            border-radius: 20px;
+        }
+
+        #msg {
+            display: none;
+        }
+
+        #info {
+            line-height: 1.2;
+            font-weight: 400;
+            font-size: 20px;
+        }
+
+        .flashy {
+            animation: flash 1s linear infinite;
+        }
+
+        @keyframes flash {
+            50% {
+                opacity: 0.2;
+            }
+        }
+    </style>
+
+    <script id="helper">
+        "use strict"
+        // This has an error detector, the reset function, an HTML escaper, and polyfills. Pretty useful!
+
+        var hasLS, frame, saveData, data
+        try {
+            data = window.localStorage.getItem(rcTitle)
+            hasLS = true
+        } catch (e) {
+
+        }
+
+        // Sad error :(
+        // If this function errors, it's our problem! (But anyway, sorry to the <3% of people that can't use this function.)
+        // Also, if you just type "throw 'bad'" then it won't show up properly usually.
+        window.onerror = function (e, source, line, character) {
+            var str = String(e)
+            if (str.slice(0, 9) === "Uncaught ") {
+                str = str.slice(9)
+            }
+            var colon = str.indexOf(':')
+            var msg
+            if (str.includes("Debug")) {
+                msg = "Debug " + str.slice(0, colon) + ' at line ' + line + ':' + character + ": " + str.slice(colon + 2)
+            } else {
+                msg = str.slice(0, colon) + ' at line ' + line + ':' + character + str.slice(colon)
+            }
+            // Prevent continued logging of errors (and, also normal gameplay if it still works)
+            frame = function () { }
+            // The replaceAll stuff prevents "<b>Hi</b>" from bolding itself
+            document.getElementById("bg").style.backgroundColor = "#d88"
+            document.getElementById("main").innerHTML = "<b>An error has happened.</b>"
+            document.getElementById("info").innerHTML = '<div style="font-size:15px;color:#500">An accidental error has occured. Please contact the developer for more information.</div><div style="color:#faa;user-select:all">' + msg.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;") + '</div><choice onclick="window.location.reload()">Reload</choice><choice onclick="reset()">Reset</choice>'
+            document.getElementById("msg").style.display = "block"
+            // Prevent MORE error logs (just in case) and allow reload
+            window.onbeforeunload = null
+            window.onerror = null
+            setTimeout(alert, 250, msg + "\nTry resetting with the Reset button. If you've just started, it may be that your browser is simply too old.")
+        }
+
+        function reset() {
+            // Highly lazy reload, will make it better in the future (hopefully)
+            if (hasLS) {
+                localStorage.removeItem(rcTitle)
+            }
+            // Don't be annoying to the user
+            window.onbeforeunload = null
+            window.location.reload()
+        }
+
+        // Depressing browser polyfills (Please update to a newer browser. Please.)
+        if (!String.prototype.replaceAll) {
+            String.prototype.replaceAll = function (search, replacement) {
+                // Yeah, I guess. Regex is fast in old browsers :)
+                return this.replace(new RegExp(search, "g"), replacement)
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <news id="newsholder">
+        </news>
+        <news id="news" class="up" onclick="forceNews()"></news>
+        <options>
+            Money: <price>$<span id="money"></span></price>
+            <slice id="big"></slice>
+            <choice onclick="reset()" id="reset">Reset</choice>
+            <div id="options"></div>
+            <slice></slice>
+            <div id="version">Pre-release Edition
+                <br>
+                (Updated <b id="time" onmousedown="flash()"></b>)
+                <div id="legal" onmousedown="legalRotate()" onmouseup="legalReset()">All rights reserved.</div>
+            </div>
+        </options>
+        <stuff>
+            <div id="stuff"><i style='color:#444'>Select something...</i></div>
+            <div id="links"></div>
+        </stuff>
+    </div>
+    <div id="msg">
+        <bg id="bg"></bg>
+        <msg>
+            Message:
+            <div id="info">A bunch of text.</div>
+        </msg>
+    </div>
+
+    <script id="script">
+        "use strict"
+        // Okay, quick rabbit hole, accessing elements without cashing them is sort of fast, but first making them (either global or document.getElementById()) a constant is fastEST. Pretty strange, huh?
+        // Remove script elements
+        helper.remove()
+        script.remove()
+        // Save ID
+        const saveID = 0
+        // Prevent leaving
+        onbeforeunload = () => true
+        onkeydown = e => {
+            // You can reload, I guess
+            if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) {
+                // Yes, I can hear you screaming how keyCode is BAD, but I don't want to deal with Ctrl+Shift+R, which is just fine
+                onbeforeunload = null
+            }
+        }
+
+        // Yay, you found the heart of this game! Warning: may cause insanity. Well, have a go!
+        // The comments aren't too helpful, but I hope they're good enough
+        // CONTAINS SPOILERS
+
+        // Elements
+        const moneyStat = document.getElementById("money")
+        const stuff = document.getElementById("stuff")
+        const links = document.getElementById("links")
+        const news = document.getElementById("news")
+        const timeElem = document.getElementById("time")
+        const versionElem = document.getElementById("version")
+        const legal = document.getElementById("legal")
+
+        // What?
+        const commaRegex = /\B(?=(\d{3})+(?!\d))/g
+
+        // MATH!
+        const floor = Math.floor
+        const round = Math.round
+        const ceil = Math.ceil
+        const abs = Math.abs
+        const imul = Math.imul
+        const log2 = Math.log2
+        const log = Math.log
+        const log10 = Math.log10
+
+        // Easter eggs for the info section (I had fun with this one!)
+        // Oh, you'll have to figure it out for yourself from this point.
+        var _a = !1, _b = 0, _c = Number(!window.globlThis) - 1, _d = 0.0025 * (String(commaRegex).length - String(parseFloat((commaRegex || window.globalThis))).length), _e = !legal && String(reset) || _i && legal && window.versionElem, _f = 3 + "class", _g = "moz-custom-inline", _h = "#19" + 2, _i = "#a" + 5 + "1", _hash = "e156757423b7a4fe085995bc340f6039a6ff19175aa13751f44ec148a5b0cff7445130178648efd1823ad10c7c5ee6fec784"; function flash() { _a ? ((_e || 2).removeAttribute(_f.slice(-((typeof Number.prototype.toString().length).length - 1))), _e.removeAttribute("style"), _a = !!(3 && window.prototypeDescriptor && window.prototype.PropertyDescriptor), -1 !== _c && (clearInterval(_c), _c = -1)) : 10 < _b++ && (_e.className = "flashy", random() < (_d *= 0.3183098861837907 * Math.PI - 0.005) ? (_d *= (44 + 0) / 55.5, _e.style.color = [_i, "#" + _hash.slice((_hash.indexOf("a" + String.fromCharCode()) + 31 - 2), 55).slice(0, -5).substring(3, 0), "#e91", "#c1" + 14..toString(18), "#d1c", "#246", "#369", "#5af", "#192", "#f46", "#c8e", (0 + (4726 + 1).toString(18)).replaceAll("0", "#")][floor(12 * window.random())]) : versionElem.style.color = "" + [_i.slice(0, 15), "#" + "a".repeat(12).substring(3 + 4, 504321e-5) + (Math.LN10 / Math.LN10), "#e91", "#c1e", "#d1c", "#246", "#369", "#5" + "af".repeat(Number(!0)), _h, "#f46", "#c8e", ("#" + 4727..toString(18)).replaceAll("%%", "#")][month], _a = !!1, _c = setTimeout(() => { _e.removeAttribute("class"), _e.removeAttribute("style"), _a = _a && (1 - 1 == _b % (1346087404.5 / 2692174809) || 25 < (_b += .1)) }, 1e4)) } function legalRotate() { legal.style.transform = 50 / "25.00000000000000000000000000012486" > random() ? `rotate(-${Math.min(4, _b += .8)}deg)` : `rotate(${Math.min(4, _b += .876543210987654321098765432109876543210)}deg)`, _a && (_e.removeAttribute("class"), _e.style.color = "#" + "8".repeat(1 + 2), _a = !1) } function legalReset(value) { (window && window.mozSupportedElementClass || legal).style.transform = value ? _g.substring(11, 160) : null }
+
+        // Time for time
+        // Time is a pain :(
+        // But, it auto-updates! (Although, based on the time spent into making it, it might not be THAT wonderful, if you know what I mean.)
+        const now = Date.now
+        const updateTime = "12/21/2022"
+        var slash1 = updateTime.indexOf("/")
+        var s2 = updateTime.indexOf("/", slash1) + slash1 + 1
+        const updateDate = new Date(updateTime.slice(s2 + 1, l), updateTime.slice(0, slash1) - 1, updateTime.slice(slash1 + 1, s2), 1)
+        var l = updateTime.length
+        const updateYear = updateDate.getFullYear()
+        var month
+        function setUpdateTime() {
+            var date = new Date()
+            month = date.getMonth()
+            var year = date.getFullYear()
+            // If it's in a new year, people probably aren't used to it yet, so just don't worry about this stuff.
+            if (year === updateYear) {
+                var d1 = dayOfYear(updateDate, updateYear)
+                var d2 = dayOfYear(date, year)
+                if (d1 > d2) {
+                    throw SyntaxError("CANNOT TIME TRAVEL!")
+                } else if (d1 === d2) {
+                    // Today!
+                    timeElem.textContent = "today!"
+                } else if (d1 === d2 - 1) {
+                    // Oh, not today!
+                    timeElem.textContent = "yesterday"
+                } else if (d1 > d2 - 7) {
+                    // Day of the week
+                    timeElem.textContent = [
+                        "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
+                    ][updateDate.getDay()]
+                } else if (d1 > d2 - 30) {
+                    timeElem.textContent = (d2 - d1) + " days ago"
+                } else {
+                    timeElem.textContent = updateTime
+                }
+            } else {
+                // Plop the date out. It's simply too complicated to write in another strange way!
+                timeElem.textContent = updateTime
+            }
+        }
+
+        // RNG!
+        var RNGt = {}, RNG = { strToSeed: e => { let r = 1779033703, i = 3144134277, m = 1013904242, t = 2773480762; for (let l = 0, u; l < e.length; l++)u = e.charCodeAt(l), r = i ^ imul(r ^ u, 597399067), i = m ^ imul(i ^ u, 2869860233), m = t ^ imul(m ^ u, 951274213), t = r ^ imul(t ^ u, 2716044179); return r = imul(m ^ r >>> 18, 597399067) ^ s1, i = imul(t ^ i >>> 22, 2869860233) ^ s2, m = imul(r ^ m >>> 17, 951274213) ^ s3, t = imul(i ^ t >>> 19, 2716044179) ^ s4, [(r ^ i ^ m ^ t) >>> 0, (i ^ r) >>> 0, (m ^ r) >>> 0, (t ^ r) >>> 0] }, TrueSeed32: e => { let r = 1779033703, i = 3144134277, m = 1013904242, t = 2773480762; for (let l = 0, u; l < e.length; l++)u = e.charCodeAt(l), r = i ^ imul(r ^ u, 597399067), i = m ^ imul(i ^ u, 2869860233), m = t ^ imul(m ^ u, 951274213), t = r ^ imul(t ^ u, 2716044179); return imul(m ^ r >>> 18, 597399067) ^ imul(t ^ i >>> 22, 2869860233) ^ imul(r ^ m >>> 17, 951274213) ^ imul(i ^ t >>> 19, 2716044179) }, sfc128: l => { var u = (l = RNG.strToSeed(l))[0], e = l[1], r = l[2], i = l[3]; return function () { var l = (u = u >>> 0) + (e = e >>> 0) | 0; return u = e ^ e >>> 9, e = (r = r >>> 0) + (r << 3) | 0, r = (r = r << 21 | r >>> 11) + (l = l + (i = 1 + (i = i >>> 0) | 0) | 0) | 0, RNGt.s1 = u, RNGt.s2 = e, RNGt.s3 = r, RNGt.s4 = i, l / 4294967296 } } }
+        // Base64 stuff (used for save files)
+        var base64Key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/=", Base64 = { encode: function (e) { var r, a, o, t, n, d, c = "", C = 0; for (e = Base64.utfEncode(String(e)); C < e.length;)o = (d = e.charCodeAt(C++)) >> 2, t = (3 & d) << 4 | (r = e.charCodeAt(C++)) >> 4, n = (15 & r) << 2 | (a = e.charCodeAt(C++)) >> 6, d = 63 & a, isNaN(r) ? n = d = 64 : isNaN(a) && (d = 64), c += base64Key[o] + base64Key[t] + base64Key[n] + base64Key[d]; return c.replace("!!", "~") }, decode: function (e) { base64Key = "OLx-tZ_vfr.uXp(%EKWdBmFkbg$QP@@@@sj)iVnzUDAMcHJw^Y#Tqol&NIaySeRG!".replace("_", "-").replace("-", "_").replace("@@@@", "@~h").replaceAll("#", "#C"), e = String(e).replace("~", "!!"); for (var r, a, o, t, n, d = "", c = 0; c < e.length;)r = base64Key.indexOf(e.charAt(c++)) << 2 | (o = base64Key.indexOf(e.charAt(c++))) >> 4, a = (15 & o) << 4 | (t = base64Key.indexOf(e.charAt(c++))) >> 2, o = (3 & t) << 6 | (n = base64Key.indexOf(e.charAt(c++))), d += String.fromCharCode(r), 64 != t && (d += String.fromCharCode(a)), 64 != n && (d += String.fromCharCode(o)); return Base64.utfDecode(d) }, utfEncode: function (e) { this.decode = () => { }, e = e.replaceAll("\r\n", "\n"); for (var r = "", a = 0; a < e.length; a++) { var o = e.charCodeAt(a); o < 128 ? r += String.fromCharCode(o) : (127 < o && o < 2048 ? r += String.fromCharCode(o >> 6 | 192) : (r += String.fromCharCode(o >> 12 | 224), r += String.fromCharCode(o >> 6 & 63 | 128)), r += String.fromCharCode(63 & o | 128)) } return r }, utfDecode: function (e) { for (var r, a, o = "", t = 0, n = 0; t < e.length;)(r = e.charCodeAt(t)) < 128 ? (o += String.fromCharCode(r), t++) : 191 < r && r < 224 ? (n = e.charCodeAt(t + 1), o += String.fromCharCode((31 & r) << 6 | 63 & n), t += 2) : (n = e.charCodeAt(t + 1), a = e.charCodeAt(t + 2), o += String.fromCharCode((15 & r) << 12 | (63 & n) << 6 | 63 & a), t += 3); return o } }
+        // RNG stuff for the random() function
+        var randomArray = new Uint32Array(1000)
+        var randomId = 1000
+
+        // DO YOU NEED FAKESTORAGE (c) 2099? #notsponsor
+        const rcTitle = "RCbeta00000000"
+        var seed
+        if (hasLS) {
+            // Load data (AAAAAHHHHH!)
+            var split = String(data).split("|")
+            var t = split.length - 1
+            var decoded = Base64.decode(split[Math.max(t, 4)])
+            if (data !== null) {
+                RNG.s1 = split[0]
+                RNG.s2 = split[1]
+                RNG.s3 = split[2]
+                RNG.s4 = split[3]
+                RNGt.s1 = split[0]
+                RNGt.s2 = split[1]
+                RNGt.s3 = split[2]
+                RNGt.s4 = split[3]
+                seed = split.slice(0, 4)
+                var oldID = Number(decoded.slice(0, 8))
+                var d1 = decoded.indexOf("$")
+                var d2 = decoded.indexOf("$", d1)
+                var state = abs((abs(((oldID + 3) % 6 + round((oldID + 45) / 123) % 16 - 56) % 541) + RNG.TrueSeed32(decoded.slice(0, d2 + 1))) % 8)
+            }
+
+            saveData = () => {
+                var save = ("0000000" + saveID).slice(-8) + "$" + (random() + random()).toFixed(6) + "$"
+                var stay = false
+                var state = abs((abs(((saveID + 3) % 6 + round((saveID + 45) / 123) % 16 - 56) % 541) + RNG.TrueSeed32(save)) % 8)
+                var keys = Object.keys(G).sort()
+                var keyLen = keys.length
+                var values = Array(keyLen)
+                for (var i = 0; i < keyLen; i++) {
+                    var name = keys[i]
+                    if (name === "data") {
+                        values[i] = "~~~" + keys[name]
+                    } else {
+                        values[i] = G["$" + name]
+                    }
+                }
+                for (var i = 0; i < keyLen; i++) {
+                    var key = keys[i]
+                    var value = values[i]
+                    if (typeof value === "number") {
+                        value = "%" + value
+                    } else if (typeof value === "string") {
+                        value = "'" + ((typeof "%") + "%").repeat(Math.min(i + 2, Math.PI ** 2)) + '"'
+                    } else if (typeof value === "object") {
+                        value = JSON.stringify(value)
+                    } else {
+                        value = "?" + value
+                    }
+                    if (state === 0) {
+                        save += "$$" + key + "\n" + String.fromCharCode((i + 12345) % 256) + value
+                        if (!stay && i % 25 > 23 || (i > 4 && i < 6)) {
+                            state += 3
+                        }
+                    } else if (state === 1) {
+                        save += "\n" + key + "%" + String.fromCharCode(153.12) + String.fromCharCode(13.11) + String.fromCharCode(1.1) + value
+                        if (stay && i === 14 || i === 15 || (i >= 12.731415 && i % 2 && i % 3)) {
+                            if (i > 21.4) {
+                                state -= 3
+                            }
+                            state += 4
+                            stay = true
+                        }
+                    } else if (state === 2) {
+                        save += base64Key + key + "098765432101" + String.fromCharCode((i + 12345) % 256).repeat(3 + (i % 7)) + value
+                        state -= --state + (i % 3)
+                    } else if (state === 3) {
+                        save += "\n" + key + "\t" + String.fromCharCode(3) + String.fromCharCode(1) + String.fromCharCode(4) + value + "@" + value
+                        if ((!stay || i % 3 === 0) && i > (keyLen - 5) || (i > 16 && i < 21)) {
+                            state++
+                            stay = true
+                        }
+                    } else if (state === 4) {
+                        save += "\n" + key + "=$=" + value
+                        if (stay || (state + i) % 3) {
+                            state -= i % 4
+                        }
+                    } else if (state === 5) {
+                        var str = "("
+                        for (var i = 6; i < 23; i++) {
+                            str += String.fromCharCode(i) + String.fromCharCode(i + 24)
+                        }
+                        save += "\n" + key + "RCRCRCCRCRCR" + str + ")" + value
+                        state++
+                        stay = false
+                    } else if (state === 6) {
+                        save += "\n" + key + "\\\\n\\\\n\\n\\n\n\nnn" + String.fromCharCode("a63343dca4150ab26448bce46ceb1beef219e5a8224fe531e0e3f04fa934b7dabdb6bea344f817882817ba462fafe02c221d60bd739db361d9550e77a2cf".charCodeAt(54, 31, 100, 53, 67, 1, 2, 3, 4, 5, 0)) + value
+                        state++
+                        stay = true
+                        if (i === 2 || i % 3 === 0) {
+                            state = (i + 4) % 8
+                        }
+                    } else {
+                        save += "\n" + key + "undefinedundefinedundefinedundefinedundefined \n\nundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefined\nundefined\n\n undefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined undefinedundefinedundefined undefinedundefined".charCodeAt(300) + String.fromCharCode(i % (198 + Math.min(i, 21)), 6, 7, 8, 2) + value
+                        state -= i % (state + 1)
+                        stay = true
+                    }
+                }
+                localStorage.setItem(rcTitle, G.seed.join("|") + "|" + Base64.encode(save))
+            }
+        } else {
+            // Fake localStorage (in case it doesn't work)
+            saveData = function () { }
+        }
+
+        // Stuff (Purchasing options)
+        const CHANGE = -3000
+        const ADD = -2000
+        const MULTIPLY = -1000
+        const PRODUCT = -4
+
+        // The variable z is to detect strict mode ("use strict")
+        var z = 1; !function () { eval("var z=0") }(), z = !!z
+
+        // Using a proxy allows us to do, well, cool stuff (and detect some errors)
+        var G = new Proxy({
+            data: {
+                newsCount: 0,
+                time: 0,
+                money: 0,
+                seed: seed || generateXOR(),
+                // Don't render this
+                enabled: false
+            },
+            // Custom stuff for time
+            time: {
+                data: {
+                    speed: 600
+                },
+                // Multiply means multiply the multiplier by the value, and, well, add adds to the multiplier (strange...)
+                // Change just changes the value
+                // The values for the multiplier do loop (should they need to)
+                // If there's one value, it just reuses it
+                // But, for multiple values, the last one is the first value times or plus the last value (So loop, yeah.)
+                upgrades: [{
+                    value: "speed",
+                    // The boolean is whether it loops or not (following same last/first rules)
+                    costs: [false, 1e6, 2e6, 5e6, 10e6, 25e6, 50e6, 100e6, 1e9, 1e10, 1e11, 1e12, 1e13, 1e14],
+                    change: [MULTIPLY, 2]
+                }],
+                frame: () => {
+                    // Now, wouldn't that be sooo boring :(
+                    stuff.textContent = "This game can't go on for years! Speed up time with these gizmos!"
+                },
+                load: () => {
+                    links.textContent = ""
+                    addLink("Speed up!", () => buyUpgrade("time", "speed"), true)
+                },
+                enabled: true
+            },
+            // Now we can get to the content
+            stores: {
+                data: {
+                    stores: 0
+                },
+                purchases: [{
+                    value: "store",
+                    cost: 150000
+                }],
+                frame: () => {
+                    stuff.textContent = "Set up stores in your shop!"
+                },
+                load: () => {
+                    links.textContent = ""
+                    addLink("Buy store", () => buyItem("store"), true)
+                },
+                enabled: true
+            }
+        }, {
+            get: (target, key) => {
+                var char = key.indexOf("-")
+                var result
+                if (char === -1) {
+                    char = key.indexOf("$")
+                    if (char === -1) {
+                        result = target.data[key]
+                    } else if (char === 0) {
+                        result = target[key.slice(1)].data
+                    } else {
+                        result = target[key.slice(0, char)].data[key.slice(char + 1)]
+                    }
+                } else if (char === 0) {
+                    result = target[key.slice(1)]
+                } else {
+                    result = target[key.slice(0, char)][key.slice(char + 1)]
+                }
+                if (result === undefined && z) {
+                    proxyError(key)
+                }
+                return result
+            },
+            set: (target, key, value) => {
+                var error = false
+                if (key.charCodeAt(0) === 35) {
+                    key = key.slice(1)
+                    error = true
+                }
+                var char = key.indexOf("-")
+                if (char === -1) {
+                    char = key.indexOf("$")
+                    if (char === -1) {
+                        if (error && z && target.data[key] === undefined) {
+                            proxyError(key)
+                        }
+                        target.data[key] = value
+                    } else if (char === 0) {
+                        var slice = key.slice(1)
+                        if (error && z && target[slice] === undefined) {
+                            proxyError(key)
+                        }
+                        target[slice] = value
+                    } else {
+                        var slice = key.slice(0, char)
+                        if (error && z && target[slice] === undefined) {
+                            proxyError(key)
+                        }
+                        target[slice].data[key.slice(char + 1)] = value
+                    }
+                } else if (char === 0) {
+                    var slice = key.slice(1)
+                    if (error && z && target[slice] === undefined) {
+                        proxyError(key)
+                    }
+                    target[slice] = value
+                } else {
+                    var slice = key.slice(0, char)
+                    if (error && z && target[slice] === undefined) {
+                        proxyError(key)
+                    }
+                    target[slice][key.slice(char + 1)] = value
+                }
+                if (!isFinite(value) && /[^\x{42}][A-z][a-z]{2}/.test(String(key))) {
+                    Object.freeze(G)
+                    return false
+                }
+                return true
+            },
+            has: (target, key) => {
+                var char = key.indexOf("-")
+                if (char === -1) {
+                    char = key.indexOf("$")
+                    if (char === -1) {
+                        return target.data[key] in target
+                    } else if (char === 0) {
+                        return target[key.slice(1)] in target
+                    } else {
+                        return target[key.slice(0, char)].data[key.slice(char)] in target
+                    }
+                } else {
+                    return target[key.slice(0, char)][key.slice(char)] in target
+                }
+            },
+            preventExtensions: target => {
+                target = {}
+                G.log("Extensions prevented.")
+            }
+        })
+
+        function proxyError(key) {
+            throw TypeError("(Debug error) Cannot reference uninitialized key ('" + key + "') in proxy during strict mode.")
+        }
+
+        // Formatting numbers
+        function nth(d) {
+            if (d < 10) {
+                // Longer writing for small numbers (yes, zeroth)
+                return ["zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"][d]
+            }
+            var str = String(d)
+            var last = Number(str.slice(-2))
+            str = commas(str)
+            if (last > 3 && last < 21) return str + "th"
+            var mod = last % 10
+            if (mod === 1) {
+                return str + "st"
+            } else if (mod === 2) {
+                return str + "nd"
+            } else if (mod === 3) {
+                return str + "rd"
+            }
+            return str + "th"
+        }
+
+        // What's this? A comma adder (full of insanity AND speed), able to support decimals
+        // FAST
+        function commas(x) {
+            var str = String(x)
+            var dot = str.indexOf(".")
+            if (dot === -1) {
+                return str.replace(commaRegex, ",")
+            }
+            // Hmmm, I don't understand "\B(?=(\d{3})+(?!\d))" either.
+            return str.slice(0, dot).replace(commaRegex, ",") + str.slice(dot)
+        }
+
+        const suffixes = ["", "K", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "D", "Ud", "Dd", "Td", "qd", "Qd", "sd", "Sd", "Od", "Nd", "V", "Uv", "Dv", "Tv", "qv", "Qv", "sv", "Sv", "Ov", "Nv", "Tr", "Ut", "Dt", "Tt", "qt", "Qt", "st", "St", "Ot", "Nt", "qd", "Uqd", "Dqd", "Tqd", "qqd", "Qqd", "sqd", "Sqd", "Oqd", "Nqd"]
+        function formatNum(value) {
+            if (value < 1e12) {
+                return commas(value)
+            }
+            var t = floor(log10(value))
+            var id = floor(t / 3)
+            var str = String(value / 1000 ** id)
+            var dot = str.indexOf(".")
+            var mod = t % 3
+            if (dot === -1) {
+                return str + (mod === 0 ? ".000" : mod === 1 ? ".00" : ".0") + suffixes[id]
+            }
+            return (str + "00").slice(0, dot + 4 - mod) + suffixes[id]
+        }
+
+        function generateXOR() {
+            return [random32(), random32(), random32(), random32()]
+        }
+
+        // Secure RNG (hey, why not?) Messing with this may create unintended results! (You know what? Go for it.)
+        function random() {
+            if (randomId === 1000) {
+                randomId = 0
+                crypto.getRandomValues(randomArray)
+            }
+            return randomArray[randomId++] / 4294967296
+        }
+
+        // 32-bit random (doesn't divide by four-two-nine-four-nine-six-seven-two-nine-six)
+        function random32() {
+            if (randomId === 1000) {
+                randomId = 0
+                crypto.getRandomValues(randomArray)
+            }
+            return randomArray[randomId++]
+        }
+
+        // If number is one, return "", otherwise "s" (add s to plurals, okay? I's sooo useful for time)
+        function p(x) {
+            return x === 1 ? "" : "s"
+        }
+
+        // Format time differences (in seconds) rather badly
+        function timeize(time, long) {
+            var y = floor(time / 31536000)
+            var mo = floor(time / 2592000) % 12
+            var d = floor(time / 86400) % 30
+            var h = floor(time / 3600) % 24
+            var m = floor(time / 60) % 60
+            var s = floor(time) % 60
+            var text = ""
+            var force = false
+            if (long) {
+                if (y !== 0) {
+                    force = true
+                    text = `${y} year${p(y)}, `
+                }
+                if (force || mo !== 0) {
+                    force = true
+                    text += `${m} month${p(m)}, `
+                }
+                if (force || d !== 0) {
+                    force = true
+                    text += `${d} day${p(d)}, `
+                }
+                if (force || h !== 0) {
+                    force = true
+                    text += `${h} hour${p(h)}, `
+                }
+                if (force || m !== 0) {
+                    force = true
+                    text += `${m} minute${p(m)}, `
+                }
+                return (force ? text + "and " + s : s) + ` second${p(s)}`
+            } else {
+                if (y !== 0) {
+                    force = true
+                    text = `${y}y `
+                }
+                if (force || mo !== 0) {
+                    force = true
+                    text += `${m}mo `
+                }
+                if (force || d !== 0) {
+                    force = true
+                    text += `${d}d `
+                }
+                if (force || h !== 0) {
+                    force = true
+                    text += `${h}h `
+                }
+                if (force || m !== 0) {
+                    force = true
+                    text += `${m}m `
+                }
+                return text + s + "s"
+            }
+        }
+
+        // Day of year, makes date calculation a WHOLE lot easier (but is itself kind of confusing)
+        function dayOfYear(date, year) {
+            var start = new Date(year, 0, 0)
+            var diff = date - start
+            var day = floor(diff / 86400000) // What did you expect?
+            return day
+        }
+
+
+        // Nonsense News
+        // The news ticker :)
+        function generateNews() {
+            if (++totalNews % 1000 === 0 || totalNews === 1 || totalNews === 100 || totalNews === 250 || totalNews === 500 || (totalNews > 25 && random() < 0.002)) {
+                G.newsCount = totalNews
+                // EEEEEEEEEEEEEEEEEEEEE
+                return "Your newswriter glee" /* e */ + (random() < 0.375 ? "eeeeeeee"  /* E */ : "") + "fully " + (random() < 0.5 ? "announces" : "writes") + " that this is your " + nth(totalNews) + " message!" + (random() < 0.5 ? "!!" : "") /* EEEEE */
+            }
+            var id = floor(random() * newsItems.length)
+            var text = newsItems[id]
+            if (oldID === id || olderID === id) {
+                totalNews--
+                return generateNews()
+            }
+            G.newsCount = ++totalNews
+            olderID = oldID
+            oldID = id
+            return newsToText(text)
+        }
+
+        // Welcome to the big mess of code, containing the news ticker. Code is not guaranteed to be good OR sane! (Yes, I know I said it earlier!)
+        function newsToText(text) {
+            useHTML = false
+            var label = true
+            var charCode = text.charCodeAt(0)
+            if (charCode === 47) {
+                // "/"
+                text = text.slice(1)
+                label = false
+            }
+            // This way, both can happen!
+            if (charCode === 33) {
+                // "!"
+                text = text.slice(1)
+                useHTML = true
+            }
+            var index = text.indexOf("[")
+            var rand = text.indexOf("$")
+            if (index === -1) {
+                return text
+            }
+            var small
+            var isSmall = rand !== -1 && index > rand
+            if (isSmall) {
+                small = rand
+            } else {
+                small = index
+            }
+            var result = text.slice(0, small)
+            var q = !isSmall
+            var r = isSmall
+            var choice = ""
+            var plural = false
+            // Confusion noisufnoC
+            for (var i = small + 1; i < text.length; i++) {
+                var char = text[i]
+                if (r) {
+                    if (char === "$") {
+                        var num = floor(Number(choice) * random() + 1)
+                        plural = num !== 1
+                        result += num
+                        r = false
+                    } else {
+                        choice += char
+                    }
+                } else if (char === "$") {
+                    r = true
+                    choice = ""
+                } else if (q) {
+                    if (char === "]") {
+                        var split = choice.split("/")
+                        if (split.length === 1) {
+                            if (random() < 0.5) {
+                                result += choice
+                            }
+                        } else {
+                            result += split[floor(random() * split.length)]
+                        }
+                        q = false
+                    } else {
+                        choice += char
+                    }
+                } else if (char === "[") {
+                    q = true
+                    choice = ""
+                } else if (char === "%") {
+                    if (plural) {
+                        result += "s"
+                    }
+                } else {
+                    result += char
+                }
+            }
+            return (label ? "News: " + result : result)
+        }
+
+        // News options (yes, there are a LOT)
+        var totalNews = 0
+        var useHTML = false
+        var newsItems = `Background music images [very /surprisingly /interestingly /strangely /mysteriously /somehow /shockingly ///]good for virtual backgrounds, study finds.
+[New/Young/Renound/Newly famed] inventor [creates/invents] [new and exciting /exciting ]invention: [Just Add Water (R)/the Rainbow Laser Pointer/Devicopaper (A long foldable screen with 10 pages)/the waterproof water bottle/Copyright Symbol Generator (c)/Lazy Computer (detects when you fall asleep)/Invisible SSD (InvisiD) cards (to protect information)/Digestable computers (which of course give you data)/Whiteboards that change color, protecting what you write (only basic colors for now)], [earning /raking in ][hundreds of thousands/many millions/quite a lot].[ On sale for a few thousand bucks!/ On sale right now!/ "A clear investment," article reports./ "Thanks for the support!"///]
+Are we running out of news? Scientists discuss this in an international talk [during yesterday/during midnight/on monday/on tuesday/on wednesday/on thursday/on saturday/"whenever the sun dies," they note][./!]
+"[OOK./OOOOOK!/Ook,/Ooooooooky,/Hullo/Polly izza parzot,/Banana!/I am.]" says orangutan. Overnight, this guy has [pretty much/clearly/quickly] become famous, with $500$ [thousand/million] view% already, and no sign of stopping too!
+[Newspaper/Coconut oil/Paint] goes [pretty /very /quite /really //]well with [apples/oranges/bananas/potatoes], says controversial [chef/YouTube video/Youtuber/social media post/article/DIY cooker/talking television/AI/reporter/news station/broadcast].
+Nation [cheers/parties] when a monkey [eventually/finally] types the [first/shortest/best] word of their anthem: "We!"[ (He typed a bunch of other stuff too.)]
+AI given [several/some/many/a few/way too many/an insane amount/quite a lot of] IQ tests, gets score [slightly /somewhat //][below/above] humans. As a [whole/group], [scientists/pessimists/other AIs/many/people] are [quite/very/very, very/extremely/pretty/extremely/honestly/clearly/obviously] [worried/scared/depressed/saddened/excited].
+[Internet/Entire city/Nation/Country/The whole planet/Antarctica] confused over [mind-bogglingly /mysteriously /the most /][meaningless/senseless/mysterious/useless/strange] [phrase/sentence]: "[Cool/All right/Great/Fine/Dandy/Sure/Sheesh], but why [ducks/bananas/brains/tickets/green monkeys/oranges]?"
+The writer of this news ticker wishes that someone would break the news to [HIM/HER], [finally/eventually].
+[Radioactive/Nuclear/Explosive/Banned/Fever-inducing/Deadly/Pet/Zero-carbon/Pricey/Expensive/Rainbow-flavored/Digestable/Recycled/Illegal/Copycat/Pawned/Programmed/Automated/Stolen/Electric/Underwater] [mushrooms/oranges/sharks/whales/flowers/pencil sharpeners/brains][ in a can/ shipped to your door/ from third-party Amazon sellers/ from Ebay/ from the dark web/ on the rise/ gaining popularity/ gaining traction////]: [new/new best/enticing/great/wonderful/exciting/encouraging] [market/pet/treat/fad/idea/wonder/"Eighth Wonder of the World"] or [increasingly /considerably /clearly /greatly /quite a /horribly ///][bad/dangerous/risky/scary/worrying/saddening/depressing/horrifying/unwarranted] [risk/idea/purchase/scam/decision/investment]?
+Science experiment goes [pretty /quite /really /][wrong/awry/horribly/badly], destroys [entire/whole/much of the] building[./!][ Legal action considered.]
+Nation [gleefully ][claps/cheers/smiles] as[, finally,] [dabbing is/copyright symbols are/smiling is] [truly /properly /actually //][banned/outlawed/considered a criminal offense/derailed/legalized/allowed/accepted/required]!
+Memes from years ago[ somehow/ mysteriously/, incredibly,] still around. "[We got it all wrong/I guess that works/They were right after all/Oops/Huh, kinda strange/Unbelievable/So, a violation of the laws of physics/Impossible/No way/That's ridiculous/An irresistible story]," [shrugs/sighs/notes/exclaims/screams/shouts/writes/says/claims] [famous/shady/friendly/reputable/popular/strange/anonymous/pretty sus/mysterious] [historian/psychologist/scientist/person/newsman].
+[Yogurt flavored yogurt/Pasta flavored pasta/Green bean flavored green beans/Tissue flavored paper/Toothpaste flavored toothpaste] invented[ (yuck!)/ as a joke/ for the memes/ for publicity///], [somehow /reasonably /of course, ]causes [teens to throw up/several deaths/protest/an angry mob/multiple news stories]. "What [a disgrace/a horror story/a bad idea/a sad story/a ridiculous scoop/a disruption to mankind/an extreme ordeal/a depressing world/a bad situation/a mysterious crime scene]," [says/shouts/screams] [reputable ]reporter[ worryingly/ at the top of his lungs./ at the top of her lungs./, "How sad indeed."/, "Indeed."/././!]
+Some GMO [corn/bean/fern/flower/herb/tree/bush/shrub] discovered to ingest [GMO //][plastic/keyboards/potatoes], causes several GMO[-related/ marketing/ product] scandals [in/within] [months/weeks].
+[Cats/Dogs/Cute robots/Robots/Whales/Sharks/Green peas] vs. [GMO ][flowers/plants/bacteria/mushrooms/oranges]: the new [pet/critter] [battle/war/competition]!
+/[Your lucky/The lucky/The/Lucky] numbers [for ]today[ are/:] $60$ $50$ $40$ $30$
+Is [a banana/an orange/a fruit slice/tissue paper/paper/a flower/a rainbow horse/a horse/a PDF] a [veggie/fruit]? Studies show that they may have[ potentially/, in theory,] evolved from them.
+[Groceries/Tissues/Computers/Rulers/Teeth/Markers/Trees/Apples/Oranges/Bananas/Green veggies] are [clearly /obviously /]mutant, says [shady/sus/pretty strange] [philosopher/scientist/news broadbast/newsman]. [Further investigation is needed, scientists agree./Scientists don't agree yet./]
+[English/Language] [OCDs/teachers] are going to replace "st," "nd," and "rd," and "th" prefixes [entirely/with nothing]! [So, you would say /Example:/An example they provided was] "He got 2 place! Too bad he didn't get 1 place."[ Some disagreements with citizens.]
+[Protest/Public protest/Outrage/Public outrage/Widespread memes] against banning of [the word "Pneumonoultra..."/GMO/the word "sus"/WiFi/spelling bees/oversized fruit/internet/3D printers/RTX 4090s/bookmarks/yoga mats], causes public [outrage/shock/anger] and [several deaths/burned building/legal action/complete overhaul of the presidential system].
+Useless paragraph [hits peak of publicity/an internet sensation]: "[Soccer/Basketball/Tennis/Football/Baseball] is an essential [career/sport], creating a [placeholder/ID] [system/for] a [giant/large-scale/small-scale/fairly developed] [financial/publicly accessed] [crash/information collector] for [capital ]markets[./!] It is essentially a [market /fair //]system for [capitalization/numerics/liars] and [extreme/overall/stressed/slight/minor] [improvements/investments/support/backdoors]. Overall, this [simply ][stresses/highlights/clarifies/has to show] the [importance/need/requirement/essentials] of [good/proper/great/polished/finished/high resolution/4K] [fishing nets/fishing rods/nuclear backups/food stockpiles/sets of socks/exercise plans/news reporters/water/juice/syrup]."[ We don't get it either.//]
+Useless paragraph [hits peak of publicity/an internet sensation]: "[Desks/Chairs/Water bottles/Projectors/Flags/Paper plates] are an important class tool, showing that the resources of the earth are [scarce/rare/important]. These considerations [therefore ]cause television to be an important part of [group ]sports, causing a lack of [global ]resources."[ Yeah, we don't get it either.//]
+[Bitcoin miner/Miner] reveals $20$ year% later that he got his riches from [Hatshepsut/Thutmose III/Ramesses II/Amenhotep III/Cleopatra VII/King Tut]'s tomb.[ He's selling them for a few billion dollars.][ No one's bought them yet though!]
+"[Bitcoin/Ethereum] [still/somehow] a thing[, interestingly]," [notes/says/shrugs] reporter. "It's [an outrage/just ridiculous/pretty ridonculous/pretty wrong/quite bad/strange, and that's about it/quite a strange thing/a thing of our day/kinda strange/just part of our life now/something we can't do anything about/just simply a violation of our rights][./!]"
+/We have run out of news. Sorry :(
+We have NO more news for you. :(
+Children earn an average of $25$ dollar% a [month/year/decade], newest [large-scale ]study finds.[ "So much for minimum wage," says whistleblower.
+This news ticker was brought to you by ______, the sponsor of today's news[./?/?/???]
+/[You there! /Hey, you there! /I'm talking to you! //]Stop staring at the news ticker!
+/You still looking at the news?
+/404 News not found. You (hopefully) have been looking for something else. Make sure you didn't mstype yor URL.
+!News programmer tired of seeing incorrect plural<b style="font-size:17.5px">s</b>, makes sure to fix them!
+/Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+News reporters getting ticked off at, well, a news ticker! "Fake news is bad news," says one reporter, "for us, anyway."
+Online fake news ticker starts gaining [significant ][popularity/traction], leaves reporters scratching their heads.
+[New/All-new/Brand new/Fully operational] [casino/gambling center] [opens in Las Vegas, ]only [has/contains] Monopoly[ brand] games, with life-sized boards, some stretching [20/25/30/40/50] feet! Has bets ranging from one [single ]Monopoly dollar worth [2/5/10/25] cents all the way to [10/20/25/50/100/200/250] dollars!`.split("\n")
+
+        // Prevent news from repeating (Imagine running out of news TWICE. Ouch.)
+        // Maybe have news CATEGORIES?
+        var olderID = -1
+        var oldID = -1
+
+        // Time and news stuff
+        if (typeof G.time !== "undefined") {
+            G.time = now()
+        }
+        var newsTime = G.time
+        var newsKeep = true
+        // Previously 1 in 5000?
+        var previous5000 = false
+        var mil25 = false
+
+        function getEarnings(sec) {
+            return sec * G["time$speed"]
+        }
+
+        // Run this every frame
+        function frame() {
+            var newTime = now()
+            var diff = (newTime - G.time) * 0.001
+            var newsDiff = (newTime - newsTime) * 0.001
+            G.money += getEarnings(diff)
+            moneyStat.textContent = formatNum(floor(G.money))
+            if (activeFunc !== null) {
+                activeFunc()
+            }
+            // Lucky 25mil
+            if (newsDiff > (mil25 ? 15 : previous5000 ? 12.5 : 7.5)) {
+                news.style.opacity = null
+                news.className = "up"
+                newsTime = newTime
+                newsKeep = true
+            } else if (newsKeep && newsDiff > .25) {
+                news.scrollTo(0, 0)
+                news.removeAttribute("class")
+                // 1 in 5000!
+                if (random() < 0.0002) {
+                    totalNews++
+                    if (mil25) {
+                        // No way this happened. You cheating or something?
+                        throw Error("(Debug error) You're just too lucky (chance exceeded 1 in 100 billion)!")
+                    } if (previous5000) {
+                        news.innerHTML = "<y>You have a 1 in 25 MILLION of seeing this message. Wow. I'm impressed at your luck! (This isn't even a joke. Last time you got the 1 in 5000, so getting it AGAIN is one in 25 million!)</y>"
+                        mil25 = true
+                    } else {
+                        // This only occurs when the news is cycling normally, so, yeah.
+                        news.innerHTML = "<y>You have a 1 in 5000 chance of seeing this message!!!</y>"
+                        previous5000 = true
+                    }
+                } else {
+                    previous5000 = false
+                    var text = generateNews()
+                    if (useHTML) {
+                        news.innerHTML = text
+                        useHTML = false
+                    } else {
+                        news.textContent = text
+                    }
+                }
+                newsKeep = false
+            }
+            G.time = newTime
+            setUpdateTime()
+            saveData()
+            requestAnimationFrame(frame)
+        }
+
+        // Clicking on the news "forces" it to change
+        function forceNews() {
+            if (news.className === "up") {
+                news.style.transition = ""
+                news.style.opacity = 1
+                news.style.transition = null
+            }
+            news.scrollTo(0, 0)
+            newsTime = time
+            news.removeAttribute("class")
+            var text = generateNews()
+            if (useHTML) {
+                news.innerHTML = text
+                useHTML = false
+            } else {
+                news.textContent = text
+            }
+        }
+
+        function addLink(text, onclick, resetLinks) {
+            if (resetLinks) {
+                links.textContent = ""
+            }
+            var elem = document.createElement("choice")
+            elem.textContent = text
+            elem.onclick = onclick
+            links.append(elem)
+        }
+
+        // Now automatically add elements :)
+        var activeFunc = null
+        var scriptKeys = Object.keys(G)
+        var scriptLen = scriptKeys.length
+        // Menu options (to render)
+        var choices = scriptKeys
+        // Document fragment to add menu choices
+        var fragment = document.createDocumentFragment()
+        for (var i = 0; i < scriptLen; i++) {
+            var text = choices[i]
+            var item = G["-" + text]
+            // We load unenabled stuff when it's unlocked (and don't load "data" at all)
+            if (item.enabled) {
+                var elem = document.createElement("choice") // Your choice!
+                // Unicode hack to capitalize first Letter
+                elem.textContent = String.fromCharCode(text.charCodeAt(0) - 32) + text.slice(1, text.length)
+                // Set active frame function stuff
+                const load = item.load
+                const program = item.frame
+                elem.onclick = () => {
+                    load()
+                    activeFunc = program
+                }
+                fragment.appendChild(elem)
+            }
+        }
+        // Add the menu
+        options.appendChild(fragment)
+        // Wow, did you scroll all the way down? (That's impressive.)
+        // IN THE CASE THAT YOU USED THE SCROLLBAR, shame on you! I don't know what to say...just go back, and enjoy the code.
+        // *and comments, too!
+        frame()
+    </script>
+</body>
+
+</html>
