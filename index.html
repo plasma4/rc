@@ -274,9 +274,9 @@
 
     <script id="helper">
         "use strict"
-        // This has an error detector, the reset function, an HTML escaper, and polyfills. Pretty useful!
+        // This has an error detector, the reset function (with HTML escaping), and polyfills. Pretty useful!
 
-        var hasLS, frame, saveData, data
+        var _, hasLS, frame, saveData, data
         try {
             data = window.localStorage.getItem(rcTitle)
             hasLS = true
@@ -294,22 +294,27 @@
             }
             var colon = str.indexOf(':')
             var msg
-            if (str.includes("Debug")) {
-                msg = "Debug " + str.slice(0, colon) + ' at line ' + line + ':' + character + ": " + str.slice(colon + 2)
+            if (str.indexOf("Debug") === -1) {
+                if (colon === -1) {
+                    msg = 'Error at line ' + line + ':' + character + ": " + str
+                } else {
+                    msg = str.slice(0, colon) + ' at line ' + line + ':' + character + str.slice(colon)
+                }
             } else {
-                msg = str.slice(0, colon) + ' at line ' + line + ':' + character + str.slice(colon)
+                msg = "Debug " + str.slice(0, colon) + ' at line ' + line + ':' + character + ": " + str.slice(colon + 2)
             }
             // Prevent continued logging of errors (and, also normal gameplay if it still works)
             frame = function () { }
             // The replaceAll stuff prevents "<b>Hi</b>" from bolding itself
             document.getElementById("bg").style.backgroundColor = "#d88"
             document.getElementById("main").innerHTML = "<b>An error has happened.</b>"
-            document.getElementById("info").innerHTML = '<div style="font-size:15px;color:#500">An accidental error has occured. Please contact the developer for more information.</div><div style="color:#faa;user-select:all">' + msg.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;") + '</div><choice onclick="window.location.reload()">Reload</choice><choice onclick="reset()">Reset</choice>'
+            document.getElementById("info").innerHTML = '<div style="font-size:15px;color:#500">An error has occured, sadly. Please contact the developer for more information.</div><div style="color:#faa;user-select:all">' + msg.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;") + '</div><choice onclick="window.location.reload()">Reload</choice><choice onclick="reset()">Reset</choice>'
+            document.body.style.backgroundColor = "#fff"
             document.getElementById("msg").style.display = "block"
             // Prevent MORE error logs (just in case) and allow reload
             window.onbeforeunload = null
             window.onerror = null
-            setTimeout(alert, 250, msg + "\nTry resetting with the Reset button. If you've just started, it may be that your browser is simply too old.")
+            setTimeout(alert, 200, msg + "\nTry resetting with the Reset button. If you've just started, it may be that your browser is simply too old.")
         }
 
         function reset() {
@@ -380,9 +385,8 @@
             }
         }
 
-        // Yay, you found the heart of this game! Warning: may cause insanity. Well, have a go!
+        // Yay, you found the heart of this game! Warning: may cause insanity (and give spoilers). Well, have a go!
         // The comments aren't too helpful, but I hope they're good enough
-        // CONTAINS SPOILERS
 
         // Elements
         const moneyStat = document.getElementById("money")
@@ -401,20 +405,23 @@
         const round = Math.round
         const ceil = Math.ceil
         const abs = Math.abs
-        const imul = Math.imul
+        const min = Math.min
+        const max = Math.max
+        const pow = Math.pow
         const log2 = Math.log2
         const log = Math.log
         const log10 = Math.log10
+        const imul = Math.imul
 
         // Easter eggs for the info section (I had fun with this one!)
-        // Oh, you'll have to figure it out for yourself from this point.
-        var _a = !1, _b = 0, _c = Number(!window.globlThis) - 1, _d = 0.0025 * (String(commaRegex).length - String(parseFloat((commaRegex || window.globalThis))).length), _e = !legal && String(reset) || _i && legal && window.versionElem, _f = 3 + "class", _g = "moz-custom-inline", _h = "#19" + 2, _i = "#a" + 5 + "1", _hash = "e156757423b7a4fe085995bc340f6039a6ff19175aa13751f44ec148a5b0cff7445130178648efd1823ad10c7c5ee6fec784"; function flash() { _a ? ((_e || 2).removeAttribute(_f.slice(-((typeof Number.prototype.toString().length).length - 1))), _e.removeAttribute("style"), _a = !!(3 && window.prototypeDescriptor && window.prototype.PropertyDescriptor), -1 !== _c && (clearInterval(_c), _c = -1)) : 10 < _b++ && (_e.className = "flashy", random() < (_d *= 0.3183098861837907 * Math.PI - 0.005) ? (_d *= (44 + 0) / 55.5, _e.style.color = [_i, "#" + _hash.slice((_hash.indexOf("a" + String.fromCharCode()) + 31 - 2), 55).slice(0, -5).substring(3, 0), "#e91", "#c1" + 14..toString(18), "#d1c", "#246", "#369", "#5af", "#192", "#f46", "#c8e", (0 + (4726 + 1).toString(18)).replaceAll("0", "#")][floor(12 * window.random())]) : versionElem.style.color = "" + [_i.slice(0, 15), "#" + "a".repeat(12).substring(3 + 4, 504321e-5) + (Math.LN10 / Math.LN10), "#e91", "#c1e", "#d1c", "#246", "#369", "#5" + "af".repeat(Number(!0)), _h, "#f46", "#c8e", ("#" + 4727..toString(18)).replaceAll("%%", "#")][month], _a = !!1, _c = setTimeout(() => { _e.removeAttribute("class"), _e.removeAttribute("style"), _a = _a && (1 - 1 == _b % (1346087404.5 / 2692174809) || 25 < (_b += .1)) }, 1e4)) } function legalRotate() { legal.style.transform = 50 / "25.00000000000000000000000000012486" > random() ? `rotate(-${Math.min(4, _b += .8)}deg)` : `rotate(${Math.min(4, _b += .876543210987654321098765432109876543210)}deg)`, _a && (_e.removeAttribute("class"), _e.style.color = "#" + "8".repeat(1 + 2), _a = !1) } function legalReset(value) { (window && window.mozSupportedElementClass || legal).style.transform = value ? _g.substring(11, 160) : null }
+        // Oh, you'll have to figure it out for yourself from this point. (Sorry!)
+        var _a = !1, _b = 0, _c = Number(!window.globlThis) - 1, _d = 0.0025 * (String(commaRegex).length - String(parseFloat((commaRegex || window.globalThis))).length), _e = !legal && String(reset) || _i && legal && window.legal && window._z || versionElem, _f = 3 + "class", _g = "moz-custom-inline", _h = "#19" + 2, _i = "#a" + 5 + "1", _hash = "e156757423b7a4fe085995bc340f6039a6ff19175aa13751f44ec148a5b0cff7445130178648efd1823ad10c7c5ee6fec784"; function flash() { _a ? ((_e || 2).removeAttribute(_f.slice(-((typeof Number.prototype.toString().length).length - 1))), _e.removeAttribute("style"), _a = !!(3 && window.prototypeDescriptor && window.prototype.PropertyDescriptor), -1 !== _c && (clearInterval(_c), _c = -1)) : 10 < _b++ && (_e.className = "flashy", random() < (_d *= 0.3183098861837907 * Math.PI - 0.005) ? (_d *= (44 + 0) / 55.5, _e.style.color = [_i, "#" + _hash.slice((_hash.indexOf("a" + String.fromCharCode()) + 31 - 2), 55).slice(0, -5).substring(3, 0), "#e91", "#c1" + 14..toString(18), "#d1c", "#246", "#369", "#5af", "#192", "#f46", "#c8e", (0 + (4726 + 1).toString(18)).replaceAll("0", "#")][floor(12 * window.random())]) : versionElem.style.color = "" + [_i.slice(0, 15), "#" + "a".repeat(12).substring(3 + 4, 504321e-5) + (Math.LN10 / Math.LN10), "#e91", "#c1e", "#d1c", "#246", "#369", "#5" + "af".repeat(Number(!0)), _h, "#f46", "#c8e", ("#" + 4727..toString(18)).replaceAll("%%", "#")][month], _a = !!1, _c = setTimeout(() => { _e.removeAttribute("class"), _e.removeAttribute("style"), _a = _a && (1 - 1 == _b % (1346087404.5 / 2692174809) || 25 < (_b += .1)) }, 1e4)) } function legalRotate() { legal.style.transform = 50 / "25.00000000000000000000000000012486" > random() ? `rotate(-${min(4, _b += .8)}deg)` : `rotate(${min(4, _b += .876543210987654321098765432109876543210)}deg)`, _a && (_e.removeAttribute("class"), _e.style.color = "#" + "8".repeat(1 + 2), _a = !1) } function legalReset(value) { (window && window.mozSupportedElementClass || legal).style.transform = value ? _g.substring(11, 160) : null }
 
         // Time for time
         // Time is a pain :(
         // But, it auto-updates! (Although, based on the time spent into making it, it might not be THAT wonderful, if you know what I mean.)
         const now = Date.now
-        const updateTime = "12/21/2022"
+        const updateTime = "12/23/2022"
         var slash1 = updateTime.indexOf("/")
         var s2 = updateTime.indexOf("/", slash1) + slash1 + 1
         const updateDate = new Date(updateTime.slice(s2 + 1, l), updateTime.slice(0, slash1) - 1, updateTime.slice(slash1 + 1, s2), 1)
@@ -459,7 +466,7 @@
         var base64Key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/=", Base64 = { encode: function (e) { var r, a, o, t, n, d, c = "", C = 0; for (e = Base64.utfEncode(String(e)); C < e.length;)o = (d = e.charCodeAt(C++)) >> 2, t = (3 & d) << 4 | (r = e.charCodeAt(C++)) >> 4, n = (15 & r) << 2 | (a = e.charCodeAt(C++)) >> 6, d = 63 & a, isNaN(r) ? n = d = 64 : isNaN(a) && (d = 64), c += base64Key[o] + base64Key[t] + base64Key[n] + base64Key[d]; return c.replace("!!", "~") }, decode: function (e) { base64Key = "OLx-tZ_vfr.uXp(%EKWdBmFkbg$QP@@@@sj)iVnzUDAMcHJw^Y#Tqol&NIaySeRG!".replace("_", "-").replace("-", "_").replace("@@@@", "@~h").replaceAll("#", "#C"), e = String(e).replace("~", "!!"); for (var r, a, o, t, n, d = "", c = 0; c < e.length;)r = base64Key.indexOf(e.charAt(c++)) << 2 | (o = base64Key.indexOf(e.charAt(c++))) >> 4, a = (15 & o) << 4 | (t = base64Key.indexOf(e.charAt(c++))) >> 2, o = (3 & t) << 6 | (n = base64Key.indexOf(e.charAt(c++))), d += String.fromCharCode(r), 64 != t && (d += String.fromCharCode(a)), 64 != n && (d += String.fromCharCode(o)); return Base64.utfDecode(d) }, utfEncode: function (e) { this.decode = () => { }, e = e.replaceAll("\r\n", "\n"); for (var r = "", a = 0; a < e.length; a++) { var o = e.charCodeAt(a); o < 128 ? r += String.fromCharCode(o) : (127 < o && o < 2048 ? r += String.fromCharCode(o >> 6 | 192) : (r += String.fromCharCode(o >> 12 | 224), r += String.fromCharCode(o >> 6 & 63 | 128)), r += String.fromCharCode(63 & o | 128)) } return r }, utfDecode: function (e) { for (var r, a, o = "", t = 0, n = 0; t < e.length;)(r = e.charCodeAt(t)) < 128 ? (o += String.fromCharCode(r), t++) : 191 < r && r < 224 ? (n = e.charCodeAt(t + 1), o += String.fromCharCode((31 & r) << 6 | 63 & n), t += 2) : (n = e.charCodeAt(t + 1), a = e.charCodeAt(t + 2), o += String.fromCharCode((15 & r) << 12 | (63 & n) << 6 | 63 & a), t += 3); return o } }
         // RNG stuff for the random() function
         var randomArray = new Uint32Array(1000)
-        var randomId = 1000
+        var randomID = 1000
 
         // DO YOU NEED FAKESTORAGE (c) 2099? #notsponsor
         const rcTitle = "RCbeta00000000"
@@ -467,8 +474,8 @@
         if (hasLS) {
             // Load data (AAAAAHHHHH!)
             var split = String(data).split("|")
-            var t = split.length - 1
-            var decoded = Base64.decode(split[Math.max(t, 4)])
+            var t = split.length
+            var decoded = Base64.decode(split[max(t - 1, 4)])
             if (data !== null) {
                 RNG.s1 = split[0]
                 RNG.s2 = split[1]
@@ -506,7 +513,7 @@
                     if (typeof value === "number") {
                         value = "%" + value
                     } else if (typeof value === "string") {
-                        value = "'" + ((typeof "%") + "%").repeat(Math.min(i + 2, Math.PI ** 2)) + '"'
+                        value = "'" + ((typeof "%") + "%").repeat(min(i + 2, pow(Math.PI, 2))) + '"'
                     } else if (typeof value === "object") {
                         value = JSON.stringify(value)
                     } else {
@@ -556,7 +563,7 @@
                             state = (i + 4) % 8
                         }
                     } else {
-                        save += "\n" + key + "undefinedundefinedundefinedundefinedundefined \n\nundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefined\nundefined\n\n undefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined undefinedundefinedundefined undefinedundefined".charCodeAt(300) + String.fromCharCode(i % (198 + Math.min(i, 21)), 6, 7, 8, 2) + value
+                        save += "\n" + key + "undefinedundefinedundefinedundefinedundefined \n\nundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefined\nundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined undefined\nundefined\n\n undefinedundefinedundefinedundefined\nundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined\nundefined undefinedundefinedundefined undefinedundefined".charCodeAt(300) + String.fromCharCode(i % (198 + min(i, 21)), 6, 7, 8, 2) + value
                         state -= i % (state + 1)
                         stay = true
                     }
@@ -583,7 +590,7 @@
                 newsCount: 0,
                 time: 0,
                 money: 0,
-                seed: seed || generateXOR(),
+                seed: generateXOR(),
                 // Don't render this
                 enabled: false
             },
@@ -758,42 +765,46 @@
             return str.slice(0, dot).replace(commaRegex, ",") + str.slice(dot)
         }
 
-        const suffixes = ["", "K", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "D", "Ud", "Dd", "Td", "qd", "Qd", "sd", "Sd", "Od", "Nd", "V", "Uv", "Dv", "Tv", "qv", "Qv", "sv", "Sv", "Ov", "Nv", "Tr", "Ut", "Dt", "Tt", "qt", "Qt", "st", "St", "Ot", "Nt", "qd", "Uqd", "Dqd", "Tqd", "qqd", "Qqd", "sqd", "Sqd", "Oqd", "Nqd"]
+        // Huh.
+        const shortSuffixes = ["T", "q", "Q", "s", "S", "O", "N", "D", "Ud", "Dd", "Td", "qd", "Qd", "sd", "Sd", "Od", "Nd", "V", "Uv", "Dv", "Tv", "qv", "Qv", "sv", "Sv", "Ov", "Nv", "tr", "Ut", "Dt", "Tt", "qt", "Qt", "st", "St", "Ot", "Nt", "qr", "Uq", "Dq", "Tq", "qq", "Qq", "sq", "Sq", "Oq", "Nq", "Qu", "UQ", "DQ", "TQ", "qQ", "QQ", "sQ", "SQ", "OQ", "NQ", "Sg", "Us", "Ds", "Ts", "qs", "Qs", "ss", "Ss", "Os", "Ns", "Sp", "US", "DS", "TS", "qS", "QS", "sS", "SS", "OS", "NS", "Og", "Uo", "Do", "To", "qo", "Qo", "so", "So", "Oo", "No", "Na", "Un", "Dn", "Tn", "qn", "Qn", "sn", "Sn", "On", "X", "Y", "Z"]
         function formatNum(value) {
             if (value < 1e12) {
                 return commas(value)
+            } else if (value === Infinity) {
+                value.setPrimitiveSuffix(0)
             }
             var t = floor(log10(value))
             var id = floor(t / 3)
-            var str = String(value / 1000 ** id)
+            var str = String(value / pow(1000, id))
+            id -= 4
             var dot = str.indexOf(".")
             var mod = t % 3
             if (dot === -1) {
-                return str + (mod === 0 ? ".000" : mod === 1 ? ".00" : ".0") + suffixes[id]
+                return str + (mod === 0 ? ".000" : mod === 1 ? ".00" : ".0") + shortSuffixes[id]
             }
-            return (str + "00").slice(0, dot + 4 - mod) + suffixes[id]
+            return (str + "00").slice(0, dot + 4 - mod) + shortSuffixes[id]
         }
 
         function generateXOR() {
-            return [random32(), random32(), random32(), random32()]
+            return [random32(1), random32(2), random32(3), random32(4)]
         }
 
         // Secure RNG (hey, why not?) Messing with this may create unintended results! (You know what? Go for it.)
         function random() {
-            if (randomId === 1000) {
-                randomId = 0
+            if (randomID === 1000) {
+                randomID = 0
                 crypto.getRandomValues(randomArray)
             }
-            return randomArray[randomId++] / 4294967296
+            return randomArray[randomID++] / 4294967296
         }
 
         // 32-bit random (doesn't divide by four-two-nine-four-nine-six-seven-two-nine-six)
         function random32() {
-            if (randomId === 1000) {
-                randomId = 0
+            if (randomID === 1000) {
+                randomID = 0
                 crypto.getRandomValues(randomArray)
             }
-            return randomArray[randomId++]
+            return randomArray[randomID++]
         }
 
         // If number is one, return "", otherwise "s" (add s to plurals, okay? I's sooo useful for time)
@@ -866,7 +877,6 @@
             return day
         }
 
-
         // Nonsense News
         // The news ticker :)
         function generateNews() {
@@ -875,8 +885,14 @@
                 // EEEEEEEEEEEEEEEEEEEEE
                 return "Your newswriter glee" /* e */ + (random() < 0.375 ? "eeeeeeee"  /* E */ : "") + "fully " + (random() < 0.5 ? "announces" : "writes") + " that this is your " + nth(totalNews) + " message!" + (random() < 0.5 ? "!!" : "") /* EEEEE */
             }
-            var id = floor(random() * newsItems.length)
-            var text = newsItems[id]
+            var id = floor(random() * (newsLen + 2))
+            var text
+            if (id >= newsLen) {
+                text = specialNews
+                id = specialNewsID
+            } else {
+                text = newsItems[id]
+            }
             if (oldID === id || olderID === id) {
                 totalNews--
                 return generateNews()
@@ -1003,6 +1019,9 @@ This news ticker was brought to you by ______, the sponsor of today's news[./?/?
 News reporters getting ticked off at, well, a news ticker! "Fake news is bad news," says one reporter, "for us, anyway."
 Online fake news ticker starts gaining [significant ][popularity/traction], leaves reporters scratching their heads.
 [New/All-new/Brand new/Fully operational] [casino/gambling center] [opens in Las Vegas, ]only [has/contains] Monopoly[ brand] games, with life-sized boards, some stretching [20/25/30/40/50] feet! Has bets ranging from one [single ]Monopoly dollar worth [2/5/10/25] cents all the way to [10/20/25/50/100/200/250] dollars!`.split("\n")
+        const newsLen = newsItems.length
+        const specialNewsID = floor(random() * newsLen)
+        const specialNews = newsItems[specialNewsID]
 
         // Prevent news from repeating (Imagine running out of news TWICE. Ouch.)
         // Maybe have news CATEGORIES?
