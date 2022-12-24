@@ -3,7 +3,7 @@
 
 <head lang="en">
     <title>Realistic Capitalism</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/plain;charset=UTF-8">
 
     <style>
         * {
@@ -369,6 +369,9 @@
 
     <script id="script">
         "use strict"
+        var script = document.createElement("script")
+        script.src = "https://raw.githubusercontent.com/plasma4/rc/main/v.js"
+        document.body.appendChild(script)
         // Okay, quick rabbit hole, accessing elements without cashing them is sort of fast, but first making them (either global or document.getElementById()) a constant is fastEST. Pretty strange, huh?
         // Remove script elements
         helper.remove()
